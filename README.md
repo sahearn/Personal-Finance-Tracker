@@ -118,7 +118,7 @@ from
 (   SELECT sum(amt) * -1 as inc FROM `exp_track` et where date like '2025-02%' and cat = 'INCOME' and descr not like 'ONLINE PAYMENT%' and descr not like 'FUNDS TRANSFER%'
     union
     SELECT sum(amt) as inc FROM `mm_track` mt where date like '2025-02%' and amt > 0
-) allt;
+) allt
 -- expenses
 SELECT round(sum(amt)) FROM `exp_track` where date like '2025-02%' and cat <> 'CCPAYMENTS' and amt > 0
 ```
@@ -137,11 +137,29 @@ from exp_track
 where cat is not null 
   and cat not in ('INCOME','CCPAYMENTS')
 group by CONCAT(year(date),'-',lpad(month(date),2,'0')), cat 
-order by year(date) desc, month(date) desc, total desc"
+order by year(date) desc, month(date) desc, total desc
 ```
 The result is the following table.  Clicking a category gives you a popup with all the transactions for that month and category.
 
 ![monthly spending by categories table](screenshots/spending-monthly-by-cats.png "monthly spending by categories table")
+
+To the right of this table is a pie chart representing "[last month's] Spending By Major Categories".  It is fed to canvasJS using the following query.  Notice I also filter out categories that I don't want here.
+```
+$catsToIgnore = array('APPLE','BILLS','CCPAYMENTS','CHARITY','DOG','FUEL','INCOME','INTEREST','MORTGAGE','PAYPAL','PERSONALCARE');
+$query = "
+    select 
+        CONCAT(UCASE(LEFT(cat, 1)),LCASE(SUBSTRING(cat, 2))) as CATEGORY, 
+        sum(amt) as TOTAL 
+    from exp_track 
+    where cat is not null 
+      and cat not in ('" . implode("','",$catsToIgnore) . "')
+      and (date >= DATE_FORMAT(CURRENT_DATE - INTERVAL 1 MONTH, '%Y/%m/01') AND date < DATE_FORMAT(CURRENT_DATE, '%Y/%m/01')) 
+    group by CONCAT(year(date),'-',lpad(month(date),2,'0')), cat 
+    order by year(date) desc, month(date) desc, total desc";
+```
+The result is the following chart.  Hovering over a slice displays the total amount for that category.
+
+![last month spending by category pie chart](screenshots/spending-last-month.png "last month spending by category pie chart")
 
 ## Personal Limitations
 - import workarounds due to hosting provider
