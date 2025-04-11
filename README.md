@@ -124,6 +124,8 @@ SELECT round(sum(amt)) FROM `exp_track` where date like '2025-02%' and cat <> 'C
 ```
 The total from the first query is added to `SNAPSHOT_TOTALS.AMT_INCOME_TOTAL` for the respective month.  The second query goes to `AMT_EXPENSES_TOTAL`.
 
+![balance trends graph](screenshots/overview-trends.png "balance trends graph")
+
 ### Display, Layout, & Printing
 
 ## Personal Limitations
