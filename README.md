@@ -68,6 +68,8 @@ CREATE TABLE `snapshots` (
 ```
 Again, INSERTs to this table are still a very manual process.  Figures like a statement balance aren't included in transaction CSVs.
 
+![snapshot table](screenshots/overview-snapshot.png "snapshot table")
+
 Once a have a full month of snapshot data, I run a series of queries to populate a `SNAPSHOT_TOTALS` table.  These monthly totals are then used to feed the "Balance Totals Trends" line graph.
 ```
 CREATE TABLE `snapshot_totals` (
@@ -128,6 +130,7 @@ The total from the first query is added to `SNAPSHOT_TOTALS.AMT_INCOME_TOTAL` fo
 - import workarounds due to hosting provider
 
 ## Screenshots
+Full screen:
 ![main view](screenshots/main.png "main view")
 
 ## To Dos to Consider
