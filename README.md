@@ -19,7 +19,6 @@ I spent years of frustration using free and commercial personal finance apps: MS
 ## My Approach
 ... in progress ...
 
-- snapshot, totals
 - display, layout, printing
 - security
 
@@ -53,6 +52,8 @@ And that just has a list of substrings (in uppercase) that I will check for duri
 ### Import Process
 There is a separate screen to initiate the import process.  I take a CSV export from a given financial institution and upload it via a regular `multipart/form-data` FORM. That form also specifies which source the import is from, since each institution has a slightly different column order. Data is imported via MySQL `LOAD DATA` into the main `EXP_TRACK` table.
 
+Once all data is imported, the main "Spending Reports" and "Household Budget" sections of the dashboard are immediately updated and viewable.
+
 ### Snapshot Totals and Balance Totals Trends
 Independent of the data just imported, the top "Overview" section of the dashboard represents snapshots of my financial picture from various institutions. Figures like, "what was the balance on my checking account at the time of the most recent statement." I capture these amounts, categorized by asset or liability, and track them for trend analysis. Data is stored in the following table:
 ```
@@ -77,8 +78,7 @@ CREATE TABLE `snapshot_totals` (
   `amt_income_total` mediumint NOT NULL,
   `amt_expenses` mediumint NOT NULL,
   `amt_expenses_filtered` mediumint NOT NULL,
-  `amt_expenses_total` mediumint NOT NULL,
-  `amt_lily` mediumint NOT NULL,
+  `amt_expenses_total` mediumint NOT NULL
   PRIMARY KEY (`id`)
 );
 ```
@@ -107,6 +107,22 @@ FROM (
 ) AS results
 ```
 In doing so, I get visibility into a more granular financial picture without large items like my regular mortgage payments or my running 401k balance.  As before, that result total is inserted into the respective column in `SNAPSHOT_TOTALS` for filtered assets or expenses for the given date.
+
+Finally, each month I run the following two queries to provide total assets and expenses amounts for the month.  These pull directly from the main `EXP_TRACK` table, and provide a monthly look at trend totals. (Granular expense tracking is already available following the main imports previously documented.)
+```
+-- income
+select round(sum(inc))
+from
+(   SELECT sum(amt) * -1 as inc FROM `exp_track` et where date like '2025-02%' and cat = 'INCOME' and descr not like 'ONLINE PAYMENT%' and descr not like 'FUNDS TRANSFER%'
+    union
+    SELECT sum(amt) as inc FROM `mm_track` mt where date like '2025-02%' and amt > 0
+) allt;
+-- expenses
+SELECT round(sum(amt)) FROM `exp_track` where date like '2025-02%' and cat <> 'CCPAYMENTS' and amt > 0
+```
+The total from the first query is added to `SNAPSHOT_TOTALS.AMT_INCOME_TOTAL` for the respective month.  The second query goes to `AMT_EXPENSES_TOTAL`.
+
+### Display, Layout, & Printing
 
 ## Personal Limitations
 - import workarounds due to hosting provider
