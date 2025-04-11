@@ -20,7 +20,7 @@ I spent years of frustration using free and commercial personal finance apps: MS
 ... in progress ...
 
 ## Screenshots
-![main view](screenshots/screenshot.png "main view")
+![main view](screenshots/main.png "main view")
 
 ## To Do
 - purge scheme (data over x years old)
