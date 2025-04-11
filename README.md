@@ -10,10 +10,10 @@ I spent years of frustration using free and commercial personal finance apps: MS
 - PHP
 - a database (I use MySQL)
 - some third party libraries for styling, graphs, and charts
-  - JQuery
-  - JQuery Datatables
-  - CanvasJS
-  - HandsonTable
+  - [jQuery](https://jquery.com/)
+  - [DataTables](https://datatables.net/)
+  - [canvasJS](https://canvasjs.com/)
+  - [Handsontable](https://handsontable.com/)
 - a lot of time and patience to customize to your needs
 
 ## My Approach
