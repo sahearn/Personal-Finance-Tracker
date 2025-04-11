@@ -52,7 +52,7 @@ And that just has a list of substrings (in uppercase) that I will check for duri
 ### Import Process
 There is a separate screen to initiate the import process.  I take a CSV export from a given financial institution and upload it via a regular `multipart/form-data` FORM. That form also specifies which source the import is from, since each institution has a slightly different column order. Data is imported via MySQL `LOAD DATA` into the main `EXP_TRACK` table.
 
-Once all data is imported, the main "Spending Reports" and "Household Budget" sections of the dashboard are immediately updated and viewable. See the section below for a further breakdown of how the data is used to generate these sections.
+Once all data is imported, the main "Spending Reports" and "Household Budget" sections of the dashboard are immediately updated and viewable. [See the section below](#spending-reports) for a further breakdown of how the data is used to generate these sections.
 
 ### Snapshot Totals and Balance Totals Trends
 Independent of the data just imported, the top "Overview" section of the dashboard represents snapshots of my financial picture from various institutions. Figures like, "what was the balance on my checking account at the time of the most recent statement." I capture these amounts, categorized by asset or liability, and track them for trend analysis. Data is stored in the following table:
@@ -127,6 +127,21 @@ The total from the first query is added to `SNAPSHOT_TOTALS.AMT_INCOME_TOTAL` fo
 ![balance trends graph](screenshots/overview-trends.png "balance trends graph")
 
 ### Spending Reports
+The first part of this section is the table for "Monthly Spending By All Categories".  This is simply a DataTable fed by the following query:
+```
+select 
+    CONCAT(year(date),'-',lpad(month(date),2,'0')) as DATE, 
+    CONCAT(UCASE(LEFT(cat, 1)),LCASE(SUBSTRING(cat, 2))) as CATEGORY, 
+    sum(amt) as TOTAL 
+from exp_track 
+where cat is not null 
+  and cat not in ('INCOME','CCPAYMENTS')
+group by CONCAT(year(date),'-',lpad(month(date),2,'0')), cat 
+order by year(date) desc, month(date) desc, total desc"
+```
+The result is the following table.  Clicking a category gives you a popup with all the transactions for that month and category.
+
+![monthly spending by categories table](screenshots/spending-monthly-by-cats.png "monthly spending by categories table")
 
 ## Personal Limitations
 - import workarounds due to hosting provider
