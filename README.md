@@ -19,9 +19,20 @@ I spent years of frustration using free and commercial personal finance apps: MS
 ## My Approach
 ... in progress ...
 
+- db tables
+  - main, categories
+- import
+- snapshot, totals
+- display, layout, printing
+- security
+
+## Personal Limitations
+- import workarounds due to hosting provider
+
 ## Screenshots
 ![main view](screenshots/main.png "main view")
 
-## To Do
+## To Dos to Consider
 - purge scheme (data over x years old)
-- more automation
+- more/better automation
+- improve txn categorization during import
