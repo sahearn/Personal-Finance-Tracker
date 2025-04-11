@@ -52,7 +52,7 @@ And that just has a list of substrings (in uppercase) that I will check for duri
 ### Import Process
 There is a separate screen to initiate the import process.  I take a CSV export from a given financial institution and upload it via a regular `multipart/form-data` FORM. That form also specifies which source the import is from, since each institution has a slightly different column order. Data is imported via MySQL `LOAD DATA` into the main `EXP_TRACK` table.
 
-Once all data is imported, the main "Spending Reports" and "Household Budget" sections of the dashboard are immediately updated and viewable.
+Once all data is imported, the main "Spending Reports" and "Household Budget" sections of the dashboard are immediately updated and viewable. [See the screenshots below.](#screenshots)
 
 ### Snapshot Totals and Balance Totals Trends
 Independent of the data just imported, the top "Overview" section of the dashboard represents snapshots of my financial picture from various institutions. Figures like, "what was the balance on my checking account at the time of the most recent statement." I capture these amounts, categorized by asset or liability, and track them for trend analysis. Data is stored in the following table:
