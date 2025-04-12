@@ -92,7 +92,7 @@ from (
      group by a.source
 ) as results
 ```
-For the example query above here, I would enter that result total into `SNAPSHOT_TOTALS.AMT_EXPENSES` where date = 2025-03-01. I use phpMyAdmin for a lot of this since the gui already has quick edit-in-place capabilities.
+For the example query above here, I would enter that result total into `SNAPSHOT_TOTALS.AMT_EXPENSES` where date = 2025-03-01. I use phpMyAdmin for a lot of this since that gui already has quick edit-in-place capabilities.
 
 Next, I run an almost identical query as before, but filter out a few of the sources:
 ```sql
