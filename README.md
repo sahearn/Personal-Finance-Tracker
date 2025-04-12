@@ -4,6 +4,8 @@ Custom financial tracking and budgeting dashboard
 ## Background
 I spent years of frustration using free and commercial personal finance apps: MS Money, Mint, Quicken, Monarch.  All of them had a lot of great features, but none of them were perfect and most of them couldn't reliably pull data from my financial institutions. So I decided to write my own. The basic process entails exporting transactions to CSV, importing them to a database, and running queries to categorize everything and provide trend analysis. For now, this still has a lot of manual processes - but these early efforts are getting the core backend and dashboard in place.
 
+[Jump to see the full dashboard screenshot below.](#screenshots)
+
 :warning: Please note this repo does not yet contain the full suite of code, db schemas, etc. Maybe someday, but I never really intended this to be public; so the code is an embarrasing mess and contains a ton of personal banking info. At the very least, though, I want to get enough published to be an inspiration to other DIYers.
 
 ## What You'll Need
