@@ -2,7 +2,7 @@
 Custom financial tracking and budgeting dashboard
 
 ## Background
-I spent years of frustration using free and commercial personal finance apps: MS Money, Mint, Quicken, Monarch.  All of them had a lot of great features, but none of them were perfect and most of them couldn't reliably pull data from my financial institutions. So I decided to write my own. For now, this still has a lot of manual processes - but these early efforts are getting the core backend and dashboard in place.
+I spent years of frustration using free and commercial personal finance apps: MS Money, Mint, Quicken, Monarch.  All of them had a lot of great features, but none of them were perfect and most of them couldn't reliably pull data from my financial institutions. So I decided to write my own. The basic process entails exporting transactions to CSV, importing them to a database, and running queries to categorize everything and provide trend analysis. For now, this still has a lot of manual processes - but these early efforts are getting the core backend and dashboard in place.
 
 :warning: Please note this repo does not yet contain the full suite of code, db schemas, etc. Maybe someday, but I never really intended this to be public; so the code is an embarrasing mess and contains a ton of personal banking info. At the very least, though, I want to get enough published to be an inspiration to other DIYers.
 
@@ -17,10 +17,6 @@ I spent years of frustration using free and commercial personal finance apps: MS
 - a lot of time and patience to customize to your needs
 
 ## My Approach
-... in progress ...
-
-- display, layout, printing
-- security
 
 ### Database
 My primary financial instituions (bank and credit cards) thankfully support data export to CSV, so the first step is ingesting that data into a single, unified table:
@@ -190,16 +186,22 @@ $query = "
 ```
 
 ## Household Budget
-There isn't a lot of new or different information here, but laying the data out in Handsontable gives me the ability to tinker with hypotheticals.  "If I spend $x on groceries per month instead of $y, how will that affect my cushion / spending money?"  Dollar amounts are sourced from the same query used in the "Monthly Average Spending by Category" table, but filtered in different ways.
+There isn't a lot of new or different information here, but laying the data out in Handsontable gives me the ability to tinker with hypotheticals.  "If I spend $x on groceries per month instead of $y, how will that affect my cushion / spending money?"  Dollar amounts are sourced from the same query used in the "Monthly Average Spending by Category" table, but filtered differently.
+
+## Display, Layout, Printing
+The dashboard layout is fully responsive, using CSS flex and custom breakpoints for desktop, tablet, and mobile. There are also `@media print` styles with set page breaks for clean landscape printing.
+
+## Security
+I personally host this on an unlinked subdomain, so it's really security through obscurity. Just in case, though, the header of every page checks for a simple cookie, set with a basic login/password. The password is currently just stored in a property, so I really need to get that encrypted to the database or something.
 
 ## Personal Limitations
-- import workarounds due to hosting provider
+Because of policy restrictions with my web host, I am not able to use PHP to import CSV data directly to MySQL.  My workaround entails writing the CSV to a temp file, then using PHP `shell_exec` to run `LOAD DATA` against that file. It's messy and amateurish, but gets the job done for me.
+
+## To Dos to Consider
+- purge scheme (data over x years old)
+- more/better automation!
+- improve txn categorization during import
 
 ## Screenshots
 Full screen:
 ![main view](screenshots/main.png "main view")
-
-## To Dos to Consider
-- purge scheme (data over x years old)
-- more/better automation
-- improve txn categorization during import
