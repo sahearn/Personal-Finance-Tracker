@@ -64,11 +64,11 @@ CREATE TABLE `snapshots` (
   PRIMARY KEY (`id`)
 );
 ```
-Again, INSERTs to this table are still a very manual process.  Figures like a statement balance aren't included in transaction CSVs.
+Again, INSERTs to this table are still a very manual process because figures like a statement balance aren't included in transaction CSVs.
 
 ![snapshot table](screenshots/overview-snapshot.png "snapshot table")
 
-Once a have a full month of snapshot data, I run a series of queries to populate a `SNAPSHOT_TOTALS` table.  These monthly totals are then used to feed the "Balance Totals Trends" line graph.
+Once I have a full month of snapshot data, I run a series of queries to populate a `SNAPSHOT_TOTALS` table.  These monthly totals are then used to feed the "Balance Totals Trends" line graph.
 ```sql
 CREATE TABLE `snapshot_totals` (
   `id` int NOT NULL AUTO_INCREMENT,
