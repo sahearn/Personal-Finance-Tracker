@@ -190,6 +190,7 @@ $query = "
 ```
 
 ## Household Budget
+There isn't a lot of new or different information here, but laying the data out in Handsontable gives me the ability to tinker with hypotheticals.  "If I spend $x on groceries per month instead of $y, how will that affect my cushion / spending money?"  Dollar amounts are sourced from the same query used in the "Monthly Average Spending by Category" table, but filtered in different ways.
 
 ## Personal Limitations
 - import workarounds due to hosting provider
