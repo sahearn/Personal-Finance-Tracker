@@ -197,10 +197,12 @@ I personally host this on an unlinked subdomain, so it's really security through
 ## Personal Limitations
 Because of policy restrictions with my web host, I am not able to use PHP to import CSV data directly to MySQL.  My workaround entails writing the CSV to a temp file, then using PHP `shell_exec` to run `LOAD DATA` against that file. It's messy and amateurish, but gets the job done for me.
 
-## To Dos to Consider
+## To Dos
 - purge scheme (data over x years old)
 - more/better automation!
 - improve txn categorization during import
+- login/password to encrypted db
+- general code cleanup
 
 ## Screenshots
 Full screen:
