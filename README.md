@@ -196,11 +196,14 @@ The dashboard layout is fully responsive, using CSS flex and custom breakpoints 
 ## Security
 I personally host this on an unlinked subdomain, so it's really security through obscurity. Just in case, though, the header of every page checks for a simple cookie, set with a basic login/password. The password is currently just stored in a property, so I really need to get that encrypted to the database or something.
 
+And speaking of encryption, yes, transaction data is currently not encrypted. This isn't a huge deal for my personal use, but it's not great just from a privacy perspective. Tackling this is high on my to-do list.
+
 ## Personal Limitations
 Because of policy restrictions with my web host, I am not able to use PHP to import CSV data directly to MySQL.  My workaround entails writing the CSV to a temp file, then using PHP `shell_exec` to run `LOAD DATA` against that file. It's messy and amateurish, but gets the job done for me.
 
 ## To Dos
 - purge scheme (data over x years old)
+- encryption of all transactions (PHP libsodium, blind index for searching, etc)
 - more/better automation!
 - improve txn categorization during import
 - login/password to encrypted db
